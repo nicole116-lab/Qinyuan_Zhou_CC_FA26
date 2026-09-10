@@ -1,0 +1,11 @@
+* {
+  box-sizing: border-box;
+  margin: 3px;
+  padding: 3px;
+}
+
+body {
+  background-color: #f0e9dc;
+  font-family: Georgia, serif;
+  padding: 40px;
+}
