@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Qinyuan Zhou's Creative Coding Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="shell">
+
+  <header class="top">
+    <div class="wordmark">Qinyuan Zhou<span>Creative Coding Portfolio</span></div>
+    <nav>
+      <button class="nav-btn active" data-view="about">About</button>
+      <button class="nav-btn" data-view="demo">Demo Box</button>
+      <button class="nav-btn" data-view="homework">Weekly Homework</button>
+    </nav>
+  </header>
+
+  <section id="about" class="view active">
+    <h1 class="page-title">About</h1>
+    <div class="about-grid">
+      <div class="avatar">
+        <div class="avatar-fallback">Qinyuan<br>Zhou</div>
+      </div>
+      <div class="about-copy">
+        <p>This site collects the work I'm making for Creative Coding this semester — in-class demos and weekly homework, both built with p5.js and plain HTML/CSS/JS.</p>
+        <p>Everything below is organized by week and updated as the course moves forward. Click any piece to open the sketch itself — it's the actual running program, not a write-up about it.</p>
+      </div>
+    </div>
+    <aside class="meta">
+      <div class="meta-block">
+        <h3>Course</h3>
+        <p>Creative Coding, Fall 2026</p>
+      </div>
+      <div class="meta-block">
+        <h3>Professor</h3>
+        <a href="https://github.com/REPLACE_WITH_PROFESSOR_USERNAME" target="_blank" rel="noopener">github.com/REPLACE_WITH_PROFESSOR_USERNAME</a>
+      </div>
+      <div class="meta-block">
+        <h3>Class Schedule</h3>
+        <a href="https://REPLACE_WITH_SCHEDULE_LINK" target="_blank" rel="noopener">View schedule</a>
+      </div>
+    </aside>
+  </section>
+
+  <section id="demo" class="view">
+    <h1 class="page-title">Demo Box</h1>
+    <p class="subview-intro">In-class sketches and experiments, organized by week. Click a title to open and run it.</p>
+    <div class="subnav" id="demo-subnav"></div>
+    <div id="demo-subviews"></div>
+  </section>
+
+  <section id="homework" class="view">
+    <h1 class="page-title">Weekly Homework</h1>
+    <p class="subview-intro">Assigned sketches, one group per week. Click a title to open and run it.</p>
+    <div class="subnav" id="hw-subnav"></div>
+    <div id="hw-subviews"></div>
+  </section>
+
+  <footer>
+    <span>Qinyuan Zhou — Creative Coding</span>
+    <span>p5.js · HTML · CSS · JS</span>
+  </footer>
+</div>
+
+<script src="creative-coding-data.js"></script>
+<script>
+/* ============================================================
+   RENDER LOGIC — you should not need to touch this file.
+   It just reads SITE_DATA (from creative-coding-data.js) and
+   builds the week tabs + click-through lists. Every list item
+   is an <a href="..."> pointing straight at the sketch file —
+   there is no intermediate detail page.
+   ============================================================ */
+function slugify(s) {
+  return s.toLowerCase().replace(/\s+/g, "");
+}
+
+function renderSection(data, subnavId, subviewsId, prefix) {
+  const subnav = document.getElementById(subnavId);
+  const subviews = document.getElementById(subviewsId);
+  const weeks = Object.keys(data);
+
+  weeks.forEach((week, i) => {
+    const btn = document.createElement("button");
+    btn.textContent = week;
+    btn.dataset.week = week;
+    if (i === 0) btn.classList.add("active");
+    btn.addEventListener("click", () => switchSubview(prefix, week));
+    subnav.appendChild(btn);
+
+    const subview = document.createElement("div");
+    subview.className = "subview" + (i === 0 ? " active" : "");
+    subview.id = prefix + "-" + slugify(week);
+
+    const items = data[week];
+    if (!items || items.length === 0) {
+      subview.innerHTML = '<p class="empty-note">Nothing posted for this week yet — check back soon.</p>';
+    } else {
+      const list = document.createElement("div");
+      list.className = "work-list";
+      items.forEach((item, idx) => {
+        const a = document.createElement("a");
+        a.className = "work-item";
+        a.href = item.file;
+        a.innerHTML =
+          '<div class="work-index">' + String(idx + 1).padStart(2, "0") + '</div>' +
+          '<div>' +
+            '<h3 class="work-title">' + item.title + '</h3>' +
+            '<p class="work-desc">' + (item.desc || "") + '</p>' +
+            '<span class="work-tag">' + item.file + '</span>' +
+          '</div>';
+        list.appendChild(a);
+      });
+      subview.appendChild(list);
+    }
+    subviews.appendChild(subview);
+  });
+}
+
+function switchSubview(prefix, week) {
+  document.querySelectorAll("#" + prefix + "-subnav button").forEach(b => {
+    b.classList.toggle("active", b.dataset.week === week);
+  });
+  document.querySelectorAll("#" + prefix + "-subviews .subview").forEach(s => {
+    s.classList.remove("active");
+  });
+  document.getElementById(prefix + "-" + slugify(week)).classList.add("active");
+}
+
+renderSection(SITE_DATA.demo, "demo-subnav", "demo-subviews", "demo");
+renderSection(SITE_DATA.homework, "hw-subnav", "hw-subviews", "hw");
+
+document.querySelectorAll("nav .nav-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll("nav .nav-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+    document.getElementById(btn.dataset.view).classList.add("active");
+  });
+});
+</script>
+</body>
+</html>

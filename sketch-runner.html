@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sketch</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; background: #fff; overflow: hidden; }
+  .missing { font-family: sans-serif; padding: 24px; color: #555; }
+
+  #back-btn {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    z-index: 9999;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: rgba(28, 28, 27, 0.78);
+    color: #FAFAF8;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 13.5px;
+    text-decoration: none;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    backdrop-filter: blur(3px);
+  }
+  #back-btn:hover { background: rgba(28, 28, 27, 0.92); }
+</style>
+</head>
+<body>
+<a id="back-btn" href="creative-coding.html">← Back</a>
+<script>
+  // Prefer going back in history (keeps whichever week/tab was open on
+  // the portfolio page); fall back to a plain link to creative-coding.html
+  // if this page was opened with no history (e.g. a direct/shared link).
+  const backBtn = document.getElementById("back-btn");
+  backBtn.addEventListener("click", (e) => {
+    if (window.history.length > 1) {
+      e.preventDefault();
+      window.history.back();
+    }
+  });
+
+  // Reads ?src=sketchweekX_Y.js from the URL and loads that file.
+  // Because it loads AFTER p5.js, the sketch's setup()/draw() just work,
+  // same as if p5.js and the sketch were both hardcoded into one page.
+  const params = new URLSearchParams(window.location.search);
+  const src = params.get("src");
+
+  if (!src) {
+    document.body.innerHTML = '<p class="missing">No sketch specified. Open this file with ?src=yourfile.js in the URL.</p>';
+  } else {
+    const s = document.createElement("script");
+    s.src = src;
+    s.onerror = () => {
+      document.body.innerHTML = '<p class="missing">Could not load "' + src + '". Check the filename and that it sits next to sketch-runner.html.</p>';
+    };
+    document.body.appendChild(s);
+  }
+</script>
+</body>
+</html>
