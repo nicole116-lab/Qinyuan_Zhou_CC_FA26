@@ -6,7 +6,7 @@ let jitter = 2;
 let colors = ["#e63946", "#f4a261", "#2a9d8f", "#264653"];
 
 let bDoExportSvg = false;
-p5.disableFriendlyErrors = true;
+// p5.disableFriendlyErrors = true;
 
 function setup() {
   createCanvas(400, 400);
@@ -25,12 +25,25 @@ function draw() {
   }
 
   // 2. 导出：同一帧里，每层单独导出一个文件
-  if (bDoExportSvg) {
-    for (let l = 0; l < layers; l++) {
-      beginRecordSvg("layer" + (l + 1) + ".svg");
+  // if (bDoExportSvg) {
+  //   for (let l = 0; l < layers; l++) {
+  //     beginRecordSvg("layer" + (l + 1) + ".svg");
+  //     drawLayer(l);
+  //     endRecordSvg();
+  //   }
+  //   bDoExportSvg = false;
+  // }
+
+  if(bDoExportSvg) {
+    beginRecordSvg('output.svg');
+  }
+
+  for (let l = 0; l < layers; l++) {
       drawLayer(l);
-      endRecordSvg();
     }
+
+  if(bDoExportSvg) {
+    endRecordSvg();
     bDoExportSvg = false;
   }
 }
