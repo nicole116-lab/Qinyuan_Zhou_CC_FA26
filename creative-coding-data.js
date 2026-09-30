@@ -38,6 +38,9 @@ const SITE_DATA = {
       { title: "Week 3 Homework — 1", desc: "", file: "sketch-runner.html?src=sketchweek3homework_1.js" },
       { title: "Week 3 Homework — 2", desc: "", file: "sketch-runner.html?src=sketchweek3homework_2.js" },
       { title: "Week 3 Homework — 3", desc: "", file: "sketch-runner.html?src=sketchweek3homework_3.js" }
-    ]
+    ],
+    "Week 4": [
+      { title: "Week 4 Homework", desc: "", file: "sketch-runner.html?src=sketchweek4homework.js" }
+  ]
   }
 };
