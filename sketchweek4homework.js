@@ -22,7 +22,6 @@ function draw() {
 
   background(255);
   translate(width / 2, height / 2);
-  rotate(frameCount * 0.01);
 
   for (let l = 0; l < layers; l++) {
     
@@ -31,7 +30,7 @@ function draw() {
     
     let offset = (l % 2) * (TWO_PI / petals / 2);
 
-    let speed = (1%2==0?1:-1)*(0.005+1*0.004);
+    let speed = (l%2==0?l:-l)*(0.005+l*0.004);
     push();
     rotate(frameCount*speed)
     
@@ -62,7 +61,7 @@ function drawPetal(len, wid) {
       if (i != 0 && i != steps) {
         y += random(-jitter, jitter);
       }
-      splineVertex(x, y);
+      curveVertex(x, y);
     }
     endShape();
   }
