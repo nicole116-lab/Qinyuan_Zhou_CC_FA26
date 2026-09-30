@@ -2,7 +2,7 @@ let petals = 12;
 let layers = 4;       
 let petalLen = 150;   
 let petalWid = 35;    
-let jitter = 2;  
+let jitter = 1;  
 
 let bDoExportSvg = false;
 p5.disableFriendlyErrors = true;
