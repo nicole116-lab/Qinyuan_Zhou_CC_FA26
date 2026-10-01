@@ -19,12 +19,12 @@ function draw() {
   background(255);
   translate(width / 2, height / 2);
 
-  // 1. 屏幕显示：所有层一起画
+  // all layers
   for (let l = 0; l < layers; l++) {
     drawLayer(l);
   }
 
-  // 2. 导出：同一帧里，每层单独导出一个文件
+  // export every layer seperately
   // if (bDoExportSvg) {
   //   for (let l = 0; l < layers; l++) {
   //     beginRecordSvg("layer" + (l + 1) + ".svg");
@@ -48,9 +48,8 @@ function draw() {
   }
 }
 
-// 画第 l 层（包含它自己的旋转、颜色、抖动）
 function drawLayer(l) {
-  randomSeed(frameCount * 10 + l);   // 同一帧同一层，抖动固定
+  randomSeed(frameCount * 10 + l);   
 
   let len = map(l, 0, layers - 1, petalLen, petalLen * 0.35);
   let wid = map(l, 0, layers - 1, petalWid, petalWid * 0.35);
@@ -85,7 +84,7 @@ function drawPetal(len, wid) {
       }
 
       if (i == 0 || i == steps) {
-        curveVertex(x, y);   // 首尾点写两次
+        curveVertex(x, y);  
       }
       curveVertex(x, y);
     }
