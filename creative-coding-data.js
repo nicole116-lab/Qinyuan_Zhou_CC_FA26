@@ -35,7 +35,7 @@ const SITE_DATA = {
       },
       { title: "Week 5 Homework 2 — Arrays & Animation",
         // desc: "Two connected p5.js sketches exploring arrays and an interactive frame-by-frame animation.",
-        file: "Week 5/homework2.html"
+        file: "Week 5/Week 5_Homework2/homework2.html"
       }
 ],
   }
