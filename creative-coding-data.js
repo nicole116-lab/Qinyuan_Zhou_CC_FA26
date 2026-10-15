@@ -1,19 +1,4 @@
-/* ============================================================
-   CREATIVE CODING — WORK LIST
-   ------------------------------------------------------------
-   This is the only file you touch week to week.
 
-   Every entry's "file" points at sketch-runner.html with a
-   ?src= query param naming the actual sketch .js file that
-   lives right next to it (no per-sketch html needed).
-
-   To add a new week's work:
-     1. Save the new sketch as sketchweekN_M.js in this same
-        folder (setup()/draw(), same as the existing files).
-     2. Add one object below with the right file name.
-   That's it — sketch-runner.html and creative-coding.html
-   never need to change.
-   ============================================================ */
 const SITE_DATA = {
   demo: {
     "Week 1": [
@@ -41,6 +26,17 @@ const SITE_DATA = {
     ],
     "Week 4": [
       { title: "Week 4 Homework", desc: "", file: "sketch-runner.html?src=sketchweek4homework.js" }
-  ]
+  ],
+
+    "Week 5": [
+      { title: "Week 5 Homework 1 — Pen Plotter",
+        desc: "A lily drawn with a pen plotter, then embroidered by hand using backstitch for the outlines and French knots for the stamens.",
+        file: "Week 5/homework1.html"
+      },
+      { title: "Week 5 Homework 2 — Arrays & Animation",
+        // desc: "Two connected p5.js sketches exploring arrays and an interactive frame-by-frame animation.",
+        file: "Week 5/homework2.html"
+      }
+],
   }
 };

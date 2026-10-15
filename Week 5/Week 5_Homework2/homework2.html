@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A Little Escape</title>
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #faf5ec;
+    }
+
+    canvas {
+      display: block;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/p5@2/lib/p5.min.js"></script>
+</head>
+
+<body>
+<script>
+let frames = [];
+
+let xLoc = 0;
+let yLoc = 0;
+let reverse = 1;
+let counter = 0;
+
+let fade = 0;
+let entering = false;
+
+async function setup() {
+  createCanvas(windowWidth, windowHeight);
+  frameRate(12);
+  rectMode(CENTER);
+  imageMode(CENTER);
+  textAlign(CENTER);
+  textFont("Georgia");
+
+  for (let i = 1; i <= 4; i++) {
+    frames.push(await loadImage("pic/" + i + ".png"));
+  }
+}
+
+function draw() {
+  background(250, 245, 236);
+
+  yLoc = height * 0.7;
+
+  
+  noStroke();
+  fill(65, 77, 63);
+  textSize(32);
+  text("A Little Escape", width / 2, height * 0.18);
+
+  textSize(15);
+  text("Hold A / D to move. Find your way into the meadow.",
+       width / 2, height * 0.18 + 35);
+
+  
+  stroke(164, 175, 143);
+  strokeWeight(2);
+  line(0, yLoc + 60, width, yLoc + 60);
+
+  
+  noStroke();
+  fill(204, 223, 190);
+  ellipse(width * 0.8, yLoc - 30, 135, 190);
+
+  fill(232, 241, 216);
+  ellipse(width * 0.8, yLoc - 30, 100, 155);
+
+
+  for (let i = 0; i < 16; i++) {
+    let angle = i * TWO_PI / 16;
+    let x = width * 0.8 + cos(angle) * 72;
+    let y = yLoc - 30 + sin(angle) * 100;
+
+    fill(222, 173, 183);
+    circle(x, y, 14);
+
+    fill(255, 236, 170);
+    circle(x, y, 5);
+  }
+
+  fill(65, 77, 63);
+  textSize(14);
+  text("THE MEADOW", width * 0.8, yLoc + 100);
+
+  // 先根据按键更新位置，再画猫
+  if (!entering && keyIsPressed) {
+    if (key === "a" || key === "A") {
+      xLoc -= 7.5;
+      reverse = -1;
+      counter++;
+    } else if (key === "d" || key === "D") {
+      xLoc += 7.5;
+      reverse = 1;
+      counter++;
+    }
+  }
+
+
+  xLoc = constrain(xLoc, 80 - width / 2, width / 2 - 80);
+
+  if (frames.length > 0) {
+    let img = frames[counter % frames.length];
+
+    push();
+    translate(width / 2 + xLoc, yLoc);
+    scale(reverse, 1);
+    image(img, 0, 0, 160, 120);
+    pop();
+  }
+
+ 
+  if (
+    dist(
+      width / 2 + xLoc, yLoc,
+      width * 0.8, yLoc
+    ) < 45
+  ) {
+    entering = true;
+  }
+
+  if (entering) {
+    fade += 25;
+
+    push();
+    rectMode(CORNER);
+    noStroke();
+    fill(250, 245, 236, fade);
+    rect(0, 0, width, height);
+    pop();
+
+    if (fade >= 255) {
+      window.location.href = "meadow.html";
+    }
+  }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+</script>
+</body>
+</html>

@@ -34,9 +34,7 @@
 <body>
 <a id="back-btn" href="creative-coding.html">← Back</a>
 <script>
-  // Prefer going back in history (keeps whichever week/tab was open on
-  // the portfolio page); fall back to a plain link to creative-coding.html
-  // if this page was opened with no history (e.g. a direct/shared link).
+  
   const backBtn = document.getElementById("back-btn");
   backBtn.addEventListener("click", (e) => {
     if (window.history.length > 1) {
@@ -45,9 +43,7 @@
     }
   });
 
-  // Reads ?src=sketchweekX_Y.js from the URL and loads that file.
-  // Because it loads AFTER p5.js, the sketch's setup()/draw() just work,
-  // same as if p5.js and the sketch were both hardcoded into one page.
+  
   const params = new URLSearchParams(window.location.search);
   const src = params.get("src");
 
