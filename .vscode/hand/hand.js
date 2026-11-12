@@ -1,7 +1,7 @@
 const W = 640;
 const H = 480;
 const SPACING = 24;
-const SOUND_DISTANCE = 12; // 偏离基线多少像素，才算拐弯
+const SOUND_DISTANCE = 12; 
 
 const colors = [
   [125, 169, 255],
@@ -29,7 +29,7 @@ function preload() {
 function setup() {
   createCanvas(W, H);
 
-  // 创建三排粒子。每颗点都记住自己的位置和发声状态。
+  
   for (let i = 0; i < 3; i++) {
     dots[i] = [];
 
