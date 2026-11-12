@@ -41,12 +41,12 @@ const SITE_DATA = {
   {
     title: "Particle Piano",
     desc: "Move your hand through three streams of colorful dots. Each dot plays a note as it bends away from its original path.",
-    file: ".vscode/hand/hand.html"
+    file: "hand/hand.html"
   },
   {
     title: "Spider-Verse Window",
     desc: "Use your index fingers and thumbs to open a window into the Spider-Verse. The animation inside turns pink and purple through pixel manipulation.",
-    file: ".vscode/hand/hand2.html"
+    file: "hand/hand2.html"
   }
 ]
   }
